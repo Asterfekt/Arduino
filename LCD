@@ -1,0 +1,106 @@
+#include "LiquidCrystal.h" //Bibloteka Wyświetlacza LCD\
+
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7); //PINY do wyświetlacza
+
+//Deklaracja zmiennych
+char numer = 0;
+int i = 0;
+
+
+
+void setup() {
+  pinMode(11, INPUT_PULLUP);
+  pinMode(12, INPUT_PULLUP);
+
+  lcd.begin(16, 2); //Deklaracja wielkości wyświetlacza
+  lcd.setCursor(3, 0); //Ustawienie kursora
+  lcd.print("AsterFekt"); //Tekst
+  lcd.setCursor(2, 1); //
+  lcd.print("Arduino LCD ");
+  delay(5000);
+  lcd.clear();
+  numer = 'a';
+}
+
+void loop() {
+
+  if (digitalRead(11) == LOW) {
+    if (i < 3) {
+      i = i + 1;
+    }
+    if (i == 0) {
+      numer = 'a';
+    }
+    if (i == 1) {
+      numer = 'b';
+    }
+    if (i == 2) {
+      numer = 'c';
+    }
+    if (i == 3) {
+      numer = 'd';
+    }
+  }
+  if (digitalRead(12) == LOW) {
+    if (i > 0) {
+      i = i - 1;
+    }
+    if (i == 0) {
+      numer = 'a';
+    }
+    if (i == 1) {
+      numer = 'b';
+    }
+    if (i == 2) {
+      numer = 'c';
+    }
+    if (i == 3) {
+      numer = 'd';
+    }
+  }
+  if (Serial.available() > 0) { 
+    numer = Serial.read(); 
+  }
+  switch (numer)
+  {
+    case'a': lcd.clear();
+      lcd.setCursor(4, 0); 
+      lcd.print("AsterFekt"); 
+      lcd.setCursor(1, 1);
+      lcd.print("1/4 Start");
+      lcd.blink();
+      delay(200);
+      break;
+    case'b': lcd.clear();
+      lcd.setCursor(4, 0);
+
+      lcd.print("AsterFekt"); 
+      lcd.setCursor(1, 1); 
+      lcd.print("2/4 Wczytaj"); 
+      delay(200);
+      break;
+    case'c': lcd.clear();
+      lcd.setCursor(4, 0); 
+      lcd.print("AsterFekt"); 
+      lcd.setCursor(1, 1);
+      lcd.print("3/4 Ustawienia ");
+      delay(200);
+
+      if (digitalRead(8) == LOW) {
+        int b = 1;
+      }
+
+      break;
+    case'd': lcd.clear();
+      lcd.setCursor(4, 0); 
+      lcd.print("AsterFekt"); 
+      lcd.setCursor(1, 1);
+      lcd.print("4/4 Tworca"); 
+      delay(200);
+      break;
+
+  }
+
+
+
+}
